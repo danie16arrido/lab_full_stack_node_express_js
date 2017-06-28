@@ -1,10 +1,18 @@
 var express = require("express");
 var countryRouter = express.Router();
 
+var sourceCountries = [
+  {
+    name: "Canada"
+  },
+  {
+    name: "Switzerlannd"
+  }
+];
+
 //country index
 countryRouter.get('/', function(req, res) {
-  console.log("String")
-  res.json({ Hi: "Daniel"});
+  res.json( sourceCountries );
 })
 
 module.exports = countryRouter;
