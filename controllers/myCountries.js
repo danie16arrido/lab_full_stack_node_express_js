@@ -1,6 +1,8 @@
 var express = require("express");
 var countryRouter = express.Router();
 
+var Country = require('../client/src/models/country.js'); 
+
 var CountryQuery = require('../db/country_query.js');
 var query = new CountryQuery();
 
@@ -19,18 +21,22 @@ countryRouter.get('/', function(req, res) {
     res.json( countries );
   })
 });
+
 //country show
 countryRouter.get('/:id', function (req, res) {
   res.json( sourceCountriesB[ req.params.id ])
 });
+
 //country create
 countryRouter.post('/', function (req, res) {
-  var country = {
+  var newCountry = new Country({
     name: req.body.name
-  }
-  sourceCountries.push(country);
-  res.json( sourceCountries );
+  });
+  query.add( newCountry, function(countries){
+  res.json( countries )
+  })
 });
+
 //country update
 countryRouter.put('/:id', function(req, res) {
   var updatedCountry = {
@@ -39,6 +45,7 @@ countryRouter.put('/:id', function(req, res) {
   sourceCountries[req.params.id] = updatedCountry;
   res.json( sourceCountries );
 });
+
 //country delete
 countryRouter.delete('/:id', function(req, res) {
   sourceCountries.splice(req.params.id, 1);
