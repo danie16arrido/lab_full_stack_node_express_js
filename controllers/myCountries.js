@@ -24,7 +24,9 @@ countryRouter.get('/', function(req, res) {
 
 //country show
 countryRouter.get('/:id', function (req, res) {
-  res.json( sourceCountriesB[ req.params.id ])
+  query.all(function ( films ) {
+    res.json( films[ req.params.id ]);
+  })
 });
 
 //country create
